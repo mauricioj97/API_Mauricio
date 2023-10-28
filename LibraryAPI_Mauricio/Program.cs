@@ -1,4 +1,6 @@
 using LibraryAPI_Mauricio.DAL;
+using LibraryAPI_Mauricio.Domain.Interfaces;
+using LibraryAPI_Mauricio.Domain.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 
 // LINEA PARA CONFIGURAR CONEXION DB
 builder.Services.AddDbContext<DataBaseContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// POR CADA NUEVO SERVICIO/INTERFAZ EN LA API SE DEBE AGREGAR AQUI LA NUEVA DEPENDENCIA 
+builder.Services.AddScoped<IBookService, BookService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
